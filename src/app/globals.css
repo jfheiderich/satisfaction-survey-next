@@ -53,7 +53,7 @@ body {
 .button {
   background-color: var(--nyc-green);
   border: none;
-  box-shadow: 5px 5px 2px 0px var(--nyc-white);
+  box-shadow: 4px 4px 2px 0px var(--nyc-white);
   color: var(--nyc-white);
   text-transform: uppercase;
   height: 42px;
@@ -64,8 +64,8 @@ body {
 }
 
 .button:hover {
-  box-shadow: 6px 6px 8px 1px var(--nyc-white);
-  filter: brightness(5);
+  box-shadow: 5px 5px 6px 1px var(--nyc-white);
+  filter: brightness(2);
 }
 
 @media (min-width: 600px) {
