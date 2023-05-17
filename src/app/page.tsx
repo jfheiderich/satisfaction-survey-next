@@ -1,3 +1,8 @@
+"use client";
+import { DefaultButton } from "./components/buttons/defaultButton";
+
 export default function Home() {
-  return <>hi</>;
+  return (
+    <DefaultButton contentButton="xxx" onClick={() => console.log("jo")} />
+  );
 }
