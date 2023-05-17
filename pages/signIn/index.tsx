@@ -14,16 +14,21 @@ const SignIn = () => {
 
   const handleLogin = () => {
     const user = users.find((user) => user.email === email);
-    if (user?.password !== password) {
+    console.log(user);
+    if (!user) {
       setError(true);
       return;
     }
-
-    router.push("/signIn");
   };
 
   return (
-    <form className="form" onSubmit={() => handleLogin()}>
+    <form
+      className="form"
+      onSubmit={() => {
+        handleLogin();
+        router.push("/survey");
+      }}
+    >
       <DefaultInput
         labelName="Email"
         inputName="email"

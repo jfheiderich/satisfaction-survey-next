@@ -8,11 +8,11 @@ import { useRouter } from "next/navigation";
 const HomePage = () => {
   const router = useRouter();
 
-  useEffect(() => {
-    if (localStorage.getItem("@login")) {
-      router.push("/");
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (localStorage.getItem("@login")) {
+  //     router.push("/");
+  //   }
+  // }, []);
   return (
     <div className="home-page">
       <div className="home-page__container">

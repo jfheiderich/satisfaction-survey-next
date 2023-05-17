@@ -14,6 +14,10 @@ const SignUp = () => {
   const router = useRouter();
 
   const createAccount = () => {
+    const user = users.find((user) => user.email === email);
+    if (user) {
+      console.log("usuario já cadastrado");
+    }
     users.push({
       name,
       email,
