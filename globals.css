@@ -30,6 +30,7 @@ body {
 }
 
 .form {
+  background: #000;
   border: 1px solid var(--nyc-green);
   height: fit-content;
   margin: 20px;
@@ -48,6 +49,10 @@ body {
   color: var(--nyc-white);
   font-weight: 700;
   width: 90%;
+}
+
+.form > p {
+  color: var(--nyc-white);
 }
 
 .button {

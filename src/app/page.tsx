@@ -1,10 +1,18 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 
 import { DefaultButton } from "./components/buttons/defaultButton";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const HomePage = () => {
+  const router = useRouter();
+
+  useEffect(() => {
+    if (localStorage.getItem("@login")) {
+      router.push("/");
+    }
+  }, []);
   return (
     <div className="home-page">
       <div className="home-page__container">
@@ -14,11 +22,11 @@ const HomePage = () => {
 
         <DefaultButton
           contentButton="Cadastrar"
-          onClick={() => console.log("hi")}
+          onClick={() => router.push("/signUp")}
         />
         <DefaultButton
           contentButton="Login"
-          onClick={() => console.log("ho")}
+          onClick={() => router.push("/signIn")}
         />
       </div>
     </div>
