@@ -144,6 +144,11 @@ body {
     align-items: center;
   }
 
+  .default--button {
+    max-width: 300px;
+    font-size: 15px;
+  }
+
   .home-page__container > img {
     max-width: 200px;
   }
@@ -157,10 +162,47 @@ body {
     margin-bottom: 5%;
   }
 
+  .survey-container > h1 {
+    font-size: 30px;
+  }
+
+  .survey-container > h2 {
+    font-size: 20px;
+  }
+
+  .survey-container__age > p {
+    font-size: 20px;
+    text-decoration: underline;
+  }
+  .survey-container__age > label {
+    text-decoration: underline;
+  }
+
+  .survey-container__age > input {
+    width: 300px;
+    height: 20px;
+  }
+
+  .survey-container__gender > p {
+    text-decoration: underline;
+  }
+
+  .survey-container__gender > p,
+  label {
+    font-size: 20px;
+    padding: 5px 0;
+  }
+
+  .survey-container__expectations > p {
+    font-size: 20px;
+    text-decoration: underline;
+  }
+
   .text-area {
     display: flex;
     flex-direction: column;
-    width: 80%;
+    width: 600px;
     text-align: start;
+    margin-bottom: 20px;
   }
 }

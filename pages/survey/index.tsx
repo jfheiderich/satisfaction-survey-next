@@ -2,21 +2,22 @@ import { DefaultButton } from "@/app/components/buttons/defaultButton";
 import "globals.css";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const Survey = () => {
   const [gender, setGender] = useState("male");
   const [age, setAge] = useState("0");
-  const [expectations, setExpectations] = useState({
-    mobile_app: false,
-    security: false,
-    transparency: false,
-    transactions_agility: false,
-    solve_problems_agility: false,
-    points_program: false,
-    low_interest_rates: false,
-    credit_to_by: false,
-    attractions_discounts: false,
-  });
-  const [other, setOther] = useState("");
+  const [mobileApp, setMobileApp] = useState(false);
+  const [security, setSecurity] = useState(false);
+  const [transparency, setTransparency] = useState(false);
+  const [transactionsAgility, setTransactionsAgility] = useState(false);
+  const [solveProblemsAgility, setSolveProblemsAgility] = useState(false);
+  const [pointsProgram, setPointsProgram] = useState(false);
+  const [lowRates, setLowRates] = useState(false);
+  const [creditToBuy, setCreditToBuy] = useState(false);
+  const [attractionsDiscounts, setAttractionsDiscounts] = useState(false);
+  const [complement, setComplement] = useState("");
 
   const router = useRouter();
   useEffect(() => {
@@ -26,13 +27,41 @@ const Survey = () => {
   });
 
   const surveyHandler = () => {
-    const resultSurvey = expectations;
-    console.log(resultSurvey);
+    const userAnswers = {
+      gender,
+      age,
+      mobileApp,
+      security,
+      transparency,
+      transactionsAgility,
+      solveProblemsAgility,
+      pointsProgram,
+      lowRates,
+      creditToBuy,
+      attractionsDiscounts,
+      complement,
+    };
+
+    if (!gender) {
+      toast.info(`Adicione o seu gênero`, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      return;
+    } else if (age === "0") {
+      toast.info(`Adicione sua idade corretamente`, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      return;
+    }
+
+    localStorage.setItem("@userAnswers", JSON.stringify(userAnswers));
+
+    router.push("/success");
   };
 
   return (
-    <form className="survey-container" onSubmit={surveyHandler}>
-      <h1>Nós fa NYC queremos ouvir você!</h1>
+    <div className="survey-container">
+      <h1>Nós da NYC queremos ouvir você!</h1>
       <h2>Sua opinião é super importante para nós!</h2>
 
       {/* Gender */}
@@ -40,7 +69,7 @@ const Survey = () => {
         <p>Qual seu gênero?</p>
         <span>
           <input
-            checked={gender === "male"}
+            defaultChecked={gender === "male"}
             type="radio"
             name="gender"
             value="male"
@@ -51,7 +80,7 @@ const Survey = () => {
         </span>
         <span>
           <input
-            checked={gender === "female"}
+            defaultChecked={gender === "female"}
             type="radio"
             name="gender"
             value="female"
@@ -62,14 +91,14 @@ const Survey = () => {
         </span>
         <span>
           <input
-            checked={gender === "uninformed"}
+            defaultChecked={gender === "other"}
             type="radio"
             name="gender"
             value="other"
             id="other"
             onChange={() => setGender("other")}
           />
-          <label htmlFor="uninformed">Outro</label>
+          <label htmlFor="other">Outro</label>
         </span>
       </div>
       <hr />
@@ -92,7 +121,12 @@ const Survey = () => {
       <div className="survey-container__expectations">
         <p>O que você espera de um banco digital como a NYC?</p>
         <span>
-          <input type="checkbox" name="mobile_app" />
+          <input
+            type="checkbox"
+            name="mobile_app"
+            defaultChecked={mobileApp}
+            onClick={() => setMobileApp(!mobileApp)}
+          />
           <label htmlFor="mobile_app">Um aplicativo intuitivo</label>
         </span>
 
@@ -100,7 +134,8 @@ const Survey = () => {
           <input
             type="checkbox"
             name="security"
-            checked={expectations.security}
+            defaultChecked={security}
+            onClick={() => setSecurity(!security)}
           />
           <label htmlFor="security">Segurança</label>
         </span>
@@ -109,7 +144,8 @@ const Survey = () => {
           <input
             type="checkbox"
             name="transparency"
-            checked={expectations.transparency}
+            defaultChecked={transparency}
+            onClick={() => setTransparency(!transparency)}
           />
           <label htmlFor="transparency">Transparência</label>
         </span>
@@ -118,7 +154,8 @@ const Survey = () => {
           <input
             type="checkbox"
             name="transactions_agility"
-            checked={expectations.transactions_agility}
+            defaultChecked={transactionsAgility}
+            onClick={() => setTransactionsAgility(!transactionsAgility)}
           />
           <label htmlFor="transactions_agility">Agilidade nas transações</label>
         </span>
@@ -127,7 +164,8 @@ const Survey = () => {
           <input
             type="checkbox"
             name="solve_problems_agility"
-            checked={expectations.solve_problems_agility}
+            defaultChecked={solveProblemsAgility}
+            onClick={() => setSolveProblemsAgility(!solveProblemsAgility)}
           />
           <label htmlFor="solve_problems_agility">
             Agilidade no atendimento
@@ -138,7 +176,8 @@ const Survey = () => {
           <input
             type="checkbox"
             name="points_program"
-            checked={expectations.points_program}
+            defaultChecked={pointsProgram}
+            onClick={() => setPointsProgram(!pointsProgram)}
           />
           <label htmlFor="points_program">Programa de Pontos</label>
         </span>
@@ -147,7 +186,8 @@ const Survey = () => {
           <input
             type="checkbox"
             name="low_interest_rates"
-            checked={expectations.low_interest_rates}
+            defaultChecked={lowRates}
+            onClick={() => setLowRates(!lowRates)}
           />
           <label htmlFor="low_interest_rates">Taxas baixas</label>
         </span>
@@ -156,7 +196,8 @@ const Survey = () => {
           <input
             type="checkbox"
             name="credit_to_by"
-            checked={expectations.credit_to_by}
+            defaultChecked={creditToBuy}
+            onClick={() => setCreditToBuy(!creditToBuy)}
           />
           <label htmlFor="credit_to_by">Crédito para compra</label>
         </span>
@@ -165,9 +206,10 @@ const Survey = () => {
           <input
             type="checkbox"
             name="attractions_discounts"
-            checked={expectations.attractions_discounts}
+            defaultChecked={attractionsDiscounts}
+            onClick={() => setAttractionsDiscounts(!attractionsDiscounts)}
           />
-          <label htmlFor="attractions_discounts">Disconto em atrações</label>
+          <label htmlFor="attractions_discounts">Desconto em atrações</label>
         </span>
       </div>
       <span className="text-area">
@@ -176,13 +218,14 @@ const Survey = () => {
           name="other"
           cols={30}
           rows={10}
-          value={other}
-          onChange={(e) => setOther(e.target.value)}
+          value={complement}
+          onChange={(e) => setComplement(e.target.value)}
         ></textarea>
       </span>
 
-      <DefaultButton contentButton="Enviar" type="submit" />
-    </form>
+      <DefaultButton contentButton="Enviar Respostas" onClick={surveyHandler} />
+      <ToastContainer />
+    </div>
   );
 };
 
