@@ -223,7 +223,12 @@ const Survey = () => {
         ></textarea>
       </span>
 
-      <DefaultButton contentButton="Enviar Respostas" onClick={surveyHandler} />
+      <div className="button-container">
+        <DefaultButton
+          contentButton="Enviar Respostas"
+          onClick={surveyHandler}
+        />
+      </div>
       <ToastContainer />
     </div>
   );

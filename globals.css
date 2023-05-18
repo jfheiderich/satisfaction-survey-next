@@ -26,6 +26,7 @@ body {
 
 .home-page__container > p {
   font-weight: 700;
+  font-size: 30px;
 }
 
 .form {
@@ -70,6 +71,10 @@ body {
 .button:hover {
   box-shadow: 5px 5px 6px 1px var(--nyc-white);
   filter: brightness(2);
+}
+
+.button-container {
+  width: 100%;
 }
 
 .survey-container {
@@ -154,9 +159,12 @@ body {
     align-items: center;
   }
 
-  .default--button {
-    max-width: 300px;
+  .default-button {
     font-size: 15px;
+  }
+
+  .button-container {
+    width: 40%;
   }
 
   .home-page__container > img {
@@ -182,7 +190,6 @@ body {
 
   .survey-container__age > p {
     font-size: 20px;
-    text-decoration: underline;
   }
   .survey-container__age > label {
     text-decoration: underline;
