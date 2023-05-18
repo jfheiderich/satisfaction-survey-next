@@ -1,6 +1,7 @@
 import { DefaultButton } from "@/app/components/buttons/defaultButton";
 import "globals.css";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 const Survey = () => {
   const [gender, setGender] = useState("male");
   const [age, setAge] = useState("0");
@@ -17,8 +18,20 @@ const Survey = () => {
   });
   const [other, setOther] = useState("");
 
+  const router = useRouter();
+  useEffect(() => {
+    if (!localStorage.getItem("@logged")) {
+      router.push("/");
+    }
+  });
+
+  const surveyHandler = () => {
+    const resultSurvey = expectations;
+    console.log(resultSurvey);
+  };
+
   return (
-    <form className="survey-container" onSubmit={() => console.log("test")}>
+    <form className="survey-container" onSubmit={surveyHandler}>
       <h1>Nós fa NYC queremos ouvir você!</h1>
       <h2>Sua opinião é super importante para nós!</h2>
 
@@ -79,11 +92,7 @@ const Survey = () => {
       <div className="survey-container__expectations">
         <p>O que você espera de um banco digital como a NYC?</p>
         <span>
-          <input
-            type="checkbox"
-            name="mobile_app"
-            checked={expectations.mobile_app}
-          />
+          <input type="checkbox" name="mobile_app" />
           <label htmlFor="mobile_app">Um aplicativo intuitivo</label>
         </span>
 

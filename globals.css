@@ -53,6 +53,7 @@ body {
 
 .form > p {
   color: var(--nyc-white);
+  font-size: 14px;
 }
 
 .button {
@@ -154,5 +155,12 @@ body {
 
   .form > .input {
     margin-bottom: 5%;
+  }
+
+  .text-area {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    text-align: start;
   }
 }

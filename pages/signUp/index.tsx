@@ -1,33 +1,72 @@
 import { DefaultButton } from "@/app/components/buttons/defaultButton";
 import { DefaultInput } from "@/app/components/inputs/defaultInput";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "/globals.css";
-import { users } from "../../src/app/usersMock";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const SignUp = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
 
   const router = useRouter();
 
-  const createAccount = () => {
-    const user = users.find((user) => user.email === email);
-    if (user) {
-      console.log("usuario já cadastrado");
+  useEffect(() => {
+    if (localStorage.getItem("@logged")) {
+      router.push("/survey");
     }
-    users.push({
+  });
+
+  const createAccount = () => {
+    if (!name) {
+      toast.error(`Campo "nome" está em branco`, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      return;
+    } else if (!email) {
+      toast.error(`Campo "email" está em branco`, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      return;
+    } else if (!password) {
+      toast.error(`Campo "senha" está em branco`, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      return;
+    }
+
+    const newUser = {
       name,
       email,
       password,
-    });
+    };
+
+    const users = localStorage.getItem("@users");
+
+    if (users) {
+      let usersMock = JSON.parse(users);
+      const isUserUsed = usersMock.find(
+        (user: { email: string }) => user.email === newUser.email
+      );
+      if (isUserUsed) {
+        toast.info(`Este email já está em uso`, {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+        return;
+      }
+      usersMock.push(newUser);
+      const usersUpdated = JSON.stringify(usersMock);
+
+      localStorage.setItem("@users", usersUpdated);
+    }
     router.push("/signIn");
   };
 
   return (
-    <form className="form" onSubmit={() => createAccount()}>
+    <div className="form">
       <DefaultInput
         labelName="Nome de usuário"
         inputName="name"
@@ -49,19 +88,16 @@ const SignUp = () => {
         inputValue={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <DefaultInput
-        labelName="Repita a senha"
-        inputName="confirm_password"
-        inputType="password"
-        inputValue={confirmPassword}
-        onChange={(e) => setConfirmPassword(e.target.value)}
-      />
 
-      <DefaultButton contentButton="Cadastrar" type="submit" />
+      <DefaultButton
+        contentButton="Cadastrar"
+        onClick={() => createAccount()}
+      />
       <p>
-        Já tem conta? <a href="/signIn">Clique aqui!</a>
+        Já tem conta? <Link href="/signIn">Clique aqui!</Link>
       </p>
-    </form>
+      <ToastContainer />
+    </div>
   );
 };
 

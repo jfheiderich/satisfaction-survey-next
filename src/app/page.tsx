@@ -4,15 +4,21 @@ import React, { useEffect } from "react";
 import { DefaultButton } from "./components/buttons/defaultButton";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { users } from "./usersMock";
 
 const HomePage = () => {
   const router = useRouter();
 
-  // useEffect(() => {
-  //   if (localStorage.getItem("@login")) {
-  //     router.push("/");
-  //   }
-  // }, []);
+  useEffect(() => {
+    localStorage.setItem("@users", JSON.stringify(users));
+  });
+
+  useEffect(() => {
+    if (localStorage.getItem("@logged")) {
+      router.push("/survey");
+    }
+  });
+
   return (
     <div className="home-page">
       <div className="home-page__container">
